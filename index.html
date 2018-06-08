@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="overlay">
+        <span class="close">&times;</span>
+        <div class="overlay-inner">
+            <img class="modal-content" src="" alt="">
+        </div>
+    </div>
+    <div class="gallery"></div>
+</body>
+<script>
+    var gallery = document.querySelector('.gallery');
+    var overlay = document.querySelector('.overlay');
+    var overlayImage = overlay.querySelector('img');
+    var overlayCloseBtn = overlay.querySelector('.close');
+    var temp = [];
+
+    function generateImages([h, v]) {
+        return `
+            <div class="item h${h} v${v}">
+                <img src="http://res.cloudinary.com/jscodebit/image/upload/v152844245${randomNumber(51)}/gallery/${randomNumberForImage(51)}.jpg" alt="">
+                <div class="item-overlay">
+                    <Label class="view">View</Label>
+                </div>
+            </div>
+        `;
+    }
+    function randomNumberForImage(limit) {
+        while(temp.length < limit){
+            var randomnumber = Math.floor(Math.random()*limit) + 1;
+            if(temp.indexOf(randomnumber) > -1) continue;
+            temp[temp.length] = randomnumber;
+            return randomnumber;
+        }
+    }
+    function randomNumber(limit) {
+        return Math.floor(Math.random() * limit) +1;
+    }
+    function handleClick(e) {
+        console.log(e.currentTarget);
+        const src = e.currentTarget.querySelector('img').src;
+        overlayImage.src = src;
+        overlay.classList.add('open');
+    }
+
+    function close() {
+        overlay.classList.remove('open');
+    }
+
+    const digits = Array.from({length: 20}, () =>
+            [randomNumber(4), randomNumber(4)]).concat([[1,1], [1,1], [1,1], [1,1], [1,1], [1,1]]);
+
+    const html = digits.map(generateImages).join('');
+
+    gallery.innerHTML = html;
+
+    const items = document.querySelectorAll('.item');
+    console.log('.items');
+    console.log(items);
+
+    items.forEach(function(item) {
+        item.addEventListener('click', handleClick);
+    });
+
+    overlayCloseBtn.addEventListener('click', close);
+
+</script>
+</html>

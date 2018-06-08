@@ -1,0 +1,139 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-auto-rows: 100px;
+    grid-auto-flow: dense;
+}
+.item {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 1;
+}
+.item img {
+    grid-column: 1/ -1;
+    grid-row: 1/ -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item-overlay {
+    background-color: rgba(34, 34, 34, .3);
+    grid-column: 1/ -1;
+    grid-row: 1/ -1;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: 0.2s;
+    -moz-transition:  0.2s;
+    -ms-transition:  0.2s;
+    -o-transition:  0.2s;
+    transition:  0.2s;
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%);
+}
+.item:hover .item-overlay {
+    transform: translateY(0);
+}
+.item-overlay .view {
+    background: none;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #fff;
+    color: #fff;
+    background: rgba(125, 125, 125, 0.2);
+    text-transform: uppercase;
+    padding: 5px 10px;
+}
+.item.v2 {
+    grid-row: span 2;
+}
+.item.v3 {
+    grid-row: span 3;
+}
+.item.v4 {
+    grid-row: span 4;
+}
+.item.h2 {
+    grid-column: span 2;
+}
+.item.h3 {
+    grid-column: span 3;
+}
+.item.h4 {
+    grid-column: span 4;
+}
+
+.overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 2;
+}
+.overlay.open {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.overlay-inner {
+    width: 600px;
+    height: auto;
+    padding: 10px;
+    position: relative;
+}
+
+.overlay-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Add Animation to image*/
+@-webkit-keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+@keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+.modal-content {
+    -webkit-animation: zoom 0.6s;
+    -o-animation: zoom 0.6s;
+    animation: zoom 0.6s;
+}
